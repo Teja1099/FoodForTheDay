@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+<style>
+    #main {
+        margin-left: 35%;
+    }
+
+    #b {
+        margin-left: 47%;
+    }
+
+    body {
+        background-color: lightgray;
+    }
+</style>
+
+<body style="background-image: url(sign.jpeg);height: 100%;
+
+padding-top: 100px;
+background-position: center;
+background-repeat: no-repeat;
+background-size: cover;color: white;">
+    <h1 style="text-align: center;">Welcome to The Sign Up Page</h1>
+    <br>
+    <div class="container">
+        <div id="main" class="">
+            <form method="post">
+                <div class="form-group">
+                    <div class="col-md-6 boxy">
+                        <label for="userid">Username</label>
+                        <input type="text" class="form-control" id="username" placeholder="Enter your user ID" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-6 boxy">
+                        <label for="name">Email Id</label>
+                        <input type="email" class="form-control" id="emailid" placeholder="Enter your name" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-6 boxy">
+                        <label for="mobile">Mobile Number</label>
+                        <input type="text" class="form-control" id="phnno" placeholder="Enter your Mobile Number"
+                            required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-6 boxy">
+                        <label for="password1">Enter Password</label>
+                        <input type="password" class="form-control" id="pwd" placeholder="Enter your Password" required>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <div class="col-md-6 boxy ">
+                        <label for="password2">Confirm Password</label>
+                        <input type="password" id="passwordConfirm" class="form-control" placeholder="Confirm Password"
+                            required>
+                    </div>
+                </div>
+
+                <br>
+
+                <div class="form-group row">
+
+                    <div class="col-md-6 boxy ">
+                        <label for="password2">Address</label>
+                        <textarea class="form-control" rows="12" id="address" id="feedback"
+                            placeholder="Enter Your Address"></textarea>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-2 offset-2">
+                        <a href="./index.html" class="btn btn-secondary">cancel</a>
+                    </div>
+                    <div class="">
+                        <button type="button" id="b" class="btn btn-primary ">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#b").click(function () {
+                var numformat = '^[0-9]+$'
+                var n = new RegExp(numformat);
+                debugger;
+                var pas = $("#passwordConfirm").val();
+                var data = {};
+                data.username = $("#username").val();
+                data.emailid = $("#emailid").val();
+                data.phnno = $("#phnno").val();
+                data.pwd = $("#pwd").val();
+                data.address = $("#address").val();
+                if (data.pwd.length < 8) {
+                    window.alert("Password should be longer than 8 characters!")
+                    window.location.href = 'reg.html';
+                    return false;
+
+                }
+                if (data.pwd.length != pas.length) {
+                    window.alert("Password doesn't match!")
+                    window.location.href = 'reg.html';
+                    return false;
+                }
+                else {
+                    for (i = 0; i < data.pwd.length; i++) {
+                        if (data.pwd.charAt(i) != pas.charAt(i)) {
+                            window.alert("Password doesn't match!")
+                            window.location.href = 'reg.html';
+                            return false;
+                        }
+                    }
+                }
+                if (data.phnno.length != 10 || !n.test(data.phnno)) {
+                    window.alert("Not a valid phone number");
+                    window.location.href = 'reg.html';
+                    return false;
+                }
+                $.ajax({
+                    type: "POST",
+                    url: "http://localhost:3007/signup/",
+                    data: JSON.stringify(data),
+                    contentType: "application/json;charset=utf-8",
+                    dataType: "json",
+                    success: function (d) {
+                        if (d.code == 400) {
+                            alert('something went wrong');
+                            return false;
+                        }
+                        // alert('working');
+                        window.location.href = 'index.html';
+                    },
+                    error: function (jqXHR) {
+                        alert('Invalid username and password');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

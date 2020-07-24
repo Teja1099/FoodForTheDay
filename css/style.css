@@ -1,0 +1,76 @@
+body {
+
+    margin-right: 0px;
+    margin-left: 0px;
+    
+  
+}
+.row-header {
+    margin: 0px auto;
+    padding: 0px 0px; }
+  
+  .row-content {
+    margin: 0px auto;
+    padding: 50px 0px;
+    /* border-bottom: 1px ridge; */
+    min-height: 200px; }
+  
+  .jumbotron {
+    margin: 0px auto;
+    padding: 70px 30px;
+    background-color:#1e065a;
+    color: floralwhite; }
+  
+  address {
+    font-size: 80%;
+    margin: 0px;
+    color: #fff; }
+  
+  body {
+    padding: 50px 0px 0px 0px;
+    z-index: 0; }
+  
+  .navbar-dark {
+    background-color: #512DAB; }
+  
+  .tab-content {
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    padding: 10px; }
+  
+  /* .carousel {
+    background: #512DAB; }
+    .carousel .carousel-item {
+      height: 300px; }
+      .carousel .carousel-item img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        min-height: 300px; } */
+  
+  #carouselbutton {
+    right: 0px;
+    position: absolute;
+    z-index: 1;
+    bottom: 0px; }
+  
+  #loginmodal .modal-dialog .modal-content .modal-header {
+    background-color: #512DAB; }
+    #loginmodal .modal-dialog .modal-content .modal-header .modal-title {
+      color: floralwhite; }
+    #loginmodal .modal-dialog .modal-content .modal-header .close {
+      color: floralwhite; }
+  
+  #loginmodal .modal-dialog .modal-content .modal-body {
+    background-color: #D1C4E9; }
+  
+  #reserve .modal-dialog .modal-content .modal-header {
+    background-color: #512DAB; }
+    #reserve .modal-dialog .modal-content .modal-header .modal-title {
+      color: floralwhite; }
+    #reserve .modal-dialog .modal-content .modal-header .close {
+      color: floralwhite; }
+  
+  #reserve .modal-dialog .modal-content .modal-body {
+    background-color: #D1C4E9; }

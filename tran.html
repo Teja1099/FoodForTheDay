@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+  <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="node_modules/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="node_modules/bootstrap-social/bootstrap-social.css">
+  <link rel="stylesheet" href="css/style.css">
+
+  <title>Food For The Day</title>
+</head>
+
+<body style="background-image: url(pics/background6.jpg);height: 100%;
+
+padding-top: 100px;
+background-position: center;
+background-repeat: no-repeat;
+background-size: cover;color: white;text-align: center;">
+
+
+
+
+
+
+  <div class="checkout-panel ">
+    <div class="panel-body">
+      <h2 class="title">Checkout</h2>
+
+      <div class="progress-bar">
+        <div class="step active"></div>
+        <div class="step active"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+      </div>
+
+
+
+
+
+      <div class="input-fields">
+        <div class="column-1">
+          <label for="cardholder">Cardholder's Name</label>
+          <input type="text" id="cardholder" />
+
+          <div class="small-inputs">
+            <div>
+              <label for="date">Valid thru</label>
+              <input type="text" id="date" placeholder="MM / YY" />
+            </div>
+
+            <div>
+              <label for="verification">CVV / CVC *</label>
+              <input type="password" id="verification" />
+            </div>
+          </div>
+
+        </div>
+        <div class="column-2">
+          <label for="cardnumber">Card Number</label>
+          <input type="password" id="cardnumber" />
+
+          <span class="info">* CVV or CVC is the card security code, unique three digits number on the back of your card
+            separate from its number.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel-footer">
+      <button class="btn back-btn bg-secondary" id="back">Cancel</button>
+      <button class="btn next-btn bg-success" id="next">Place Order</button>
+    </div>
+  </div>
+  <div>
+    <h2>Total cost:</h2>
+    <p id="to_c">
+    </p>
+  </div>
+  <div>
+    <h2>Shipping To:</h2>
+    <p id="ship_address">
+    </p>
+  </div>
+  <!-- <script src="node_modules/jquery/dist/jquery.slim.min.js"></script> -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+
+  <script>
+    $(document).ready(function () {
+      $("#back").click(()=> {
+        window.location.href = '/cart.html';
+      });
+      $("#next").click(()=> {
+        window.alert("Order has been placed");
+        window.location.href = '/cart.html';
+      });
+      var data={};
+      data.emailid=sessionStorage.getItem("user");
+      console.log(sessionStorage.getItem("cost"));
+      document.getElementById("to_c").innerHTML = sessionStorage.getItem("cost");
+      $.ajax({
+        type: "POST",
+        url: "http://localhost:3007/tr/",
+        data: JSON.stringify(data),
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (d) {
+            if (d.code == 400) {
+              alert('something went wrong');
+              return false;
+            }
+            // alert('working');
+            var addr=JSON.stringify(d.address);
+            console.log(addr);
+            var add="";
+            for(var i=12;i<addr.length-2;i++ ) {
+              add+=addr[i];
+            }
+            document.getElementById("ship_address").innerHTML = add;
+        },
+        error: function (jqXHR) {
+            alert('Invalid username and password');
+        }
+    });
+  });
+  </script>
+</body>
+
+</html>

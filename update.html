@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <title>Food For The Day: About Us</title>
+    <!-- Required meta tags always come first -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <!-- Bootstrap CSS -->
+    <!-- build:css css/main.css -->
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="node_modules/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="node_modules/bootstrap-social/bootstrap-social.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .footer {
+            background-color: #6c757d;
+            margin: 0px auto;
+            padding: 20px 0px;
+        }
+    </style>
+    <!-- endbuild -->
+</head>
+
+<body>
+
+
+    <header class="jumbotron">
+        <div class="container">
+            <div class="row row-header">
+                <div class="col-12 col-sm-8 align-items-center">
+                    <h1
+                        style="color:white;font-weight: 600;text-align: left;font-size:80px;font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif, cursive;">
+                        Food For The Day</h1>
+                    <p class="d-none d-sm-block"
+                        style="color: white;font-weight: 125;font-size:25px;font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">
+                        We take inspiration from the World's best cuisines, and create a unique fusion experience. Our
+                        lipsmacking creations will tickle your culinary senses!
+                        <br> We The 'Food For The Day' provide you the Food for your entire day.
+                        <br>It is no longer required to stay hungry at any part of the day!
+
+                    </p>
+
+                </div>
+                <div class="col-12 col-sm align-self-center">
+                    <img src="pics/projectlogo.PNG" width="300" height="300" />
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+
+        <div class="row row-content">
+            <div class="col-12">
+                <h3>Create a new Password</h3>
+            </div><br><br>
+            <div class="col-12 col-md-9">
+                <form method="POST">
+                    <div class="form-group row">
+                        <label for="email" class="col-form-label col-md-2">Email</label>
+                        <div class=" col-md-10">
+                            <input type="email" class="form-control" id="emailid" id="email" name="email"
+                                placeholder="Email" />
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="f_name" class="col-form-label col-md-2">Password</label>
+                        <div class=" col-md-10">
+                            <input type="password" class="form-control" id="pwd"
+                                placeholder="password" />
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="l_name" class="col-form-label col-md-2">Confirm Password</label>
+                        <div class=" col-md-10">
+                            <input type="password" class="form-control" id="cpwd" id="l_name" 
+                                placeholder="Confirm Password" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="offset-2 col-md-10">
+                            <a class="btn btn-secondary mr-3" href="./index.html" >Cancel</a>
+                            <button class="btn btn-primary" id="forgot" type="button" />Submit
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-12 col-md">
+            </div>
+        </div>
+
+    </div>
+
+   
+    <script src="node_modules/jquery/dist/jquery.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="js/scripts.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#forgot").click(function () {
+                console.log("j");
+                // debugger;
+                var dat = {};
+                dat.emailid = $("#emailid").val();
+                dat.pwd=$("#pwd").val();
+                var pas=$("#cpwd").val();
+                console.log(pas);
+                if (dat.pwd.length < 8) {
+                    window.alert("Password should be longer than 8 characters!")
+                    window.location.href = 'update.html';
+                    return false;
+
+                }
+                if (dat.pwd.length != pas.length) {
+                    window.alert("Password doesn't match!")
+                    window.location.href = 'update.html';
+                    return false;
+                }
+
+                $.ajax({
+                    type: "POST",
+                    url: "http://localhost:3007/forgot/",
+                    data: JSON.stringify(dat),
+                    contentType: "application/json;charset=utf-8",
+                    dataType: "json",
+                    success: function (d) {
+                        if (d.code == 400) {
+                            alert("Emailid doesn't exist" );
+                            return false;
+                        }
+                        alert('working');
+                        window.location.href = 'index.html';
+                    },
+                    error: function (jqXHR) {
+                        alert('Invalid username and password');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
