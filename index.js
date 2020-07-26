@@ -19,6 +19,7 @@ app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Headers", "Origin,x-Requetsed-with,Content-Type,Accept");
     next();
 });
+
 const db = mysql.createConnection({
     host: process.env.DATABASE_HOST,
     user: process.env.DATABASE_USER,
@@ -127,7 +128,6 @@ app.post('/signup', (req, res) => {
             // res.redirect('/WebContent/cart');
         }
     });
-
 });
 
 app.post('/feedback', (req, res) => {
@@ -178,6 +178,28 @@ app.post('/tr', (req, res) => {
         }
     });
 });
+
+app.post('/debitcreditcard', (req, res) => {
+    const data = req.body;
+    console.log(data);
+    db.query('Insert into debitcreditcard set ?', [data], (err, results, fields) => {
+        if (err) {
+            console.log(err);
+            res.send({
+                "code": 400,
+                "failed": "something went wroung"
+            });
+        }
+        else {
+            res.send({
+                "code": 200,
+                "success": "User Registration is completed"
+            });
+            // res.redirect('/WebContent/cart');
+        }
+    });
+});
+
 
 app.listen(3007, () => {
     console.log("server started on port 3007");

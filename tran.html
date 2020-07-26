@@ -92,10 +92,15 @@ background-size: cover;color: white;text-align: center;">
 
   <script>
     $(document).ready(function () {
+      if (sessionStorage.getItem("cost") == null) {
+                console.log("here");
+                window.location.href = '/cart.html';
+            }
       $("#back").click(()=> {
         window.location.href = '/cart.html';
       });
       $("#next").click(()=> {
+        sessionStorage.removeItem("cost");
         window.alert("Order has been placed");
         window.location.href = '/cart.html';
       });
